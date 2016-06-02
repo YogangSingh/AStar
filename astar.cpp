@@ -96,7 +96,7 @@ void findPath(const PMap &map, Pos start, Pos dest, const vector<Pos> &blocks, v
         Node() :x(0), y(0), level(0), priority(0) {}
         Node(int xp, int yp, int d, int p) :x(xp), y(yp), level(d), priority(p) {}
         void updatePriority(int xDest, int yDest)
-        { priority = level + estimate(xDest, yDest) * 10; }
+        { priority = level + estimate(xDest, yDest) * 9; }
         void nextLevel()
         { level += 10; }
         int estimate(const int & xDest, const int & yDest) const {
@@ -175,16 +175,16 @@ void findPath(const PMap &map, Pos start, Pos dest, const vector<Pos> &blocks, v
                 else if(open_nodes_map[xdx][ydy] > m0.priority) {
                     open_nodes_map[xdx][ydy] = m0.priority;
                     dir_map[xdx][ydy] = (i + 2) % 4;
-                    while(!(pq[pqi].top().x == xdx && pq[pqi].top().y == ydy)) {                
+                    while(!(pq[pqi].top().x == xdx && pq[pqi].top().y == ydy)) {
                         pq[1 - pqi].push(pq[pqi].top());
-                        pq[pqi].pop();       
+                        pq[pqi].pop();
                     }
                     pq[pqi].pop();
                     if(pq[pqi].size() > pq[1 - pqi].size())
                         pqi=1 - pqi;
-                    while(!pq[pqi].empty()) {                
+                    while(!pq[pqi].empty()) {
                         pq[1 - pqi].push(pq[pqi].top());
-                        pq[pqi].pop();       
+                        pq[pqi].pop();
                     }
                     pqi=1 - pqi;
                     pq[pqi].push(m0);
@@ -219,7 +219,7 @@ int main()
     findPath(map, Pos(xA, yA), Pos(xB, yB), vector<Pos>(), path);
     clock_t end = clock();
 
-    // follow the route on the map and display it 
+    // follow the route on the map and display it
     int displayedMap[MAP_SIZE][MAP_SIZE] = {0};
     for(size_t i=0;i<path.size();i++)
         displayedMap[path[i].x][path[i].y]=1;
@@ -246,7 +246,7 @@ int main()
     cout<<"Finish: "<<xB<<","<<yB<<endl;
     if(path.empty()) cout<<"An empty route generated!"<<endl;
     double time_elapsed = double(end - start);
-    cout<<"Time to calculate the route (ms): "<<time_elapsed<<endl;
+    cout<<"Time to calculate the route (us): "<<time_elapsed<<endl;
     return(0);
 }
 
