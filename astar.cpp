@@ -211,8 +211,6 @@ int main()
         yA = rand() % MAP_SIZE;
         yB = rand() % MAP_SIZE;
     } while (map[yA][yB] < 15);
-    //xA = 6; yA = 0;
-    //xB = 143; yB = 149;
 
     // get the route
     clock_t start = clock();
